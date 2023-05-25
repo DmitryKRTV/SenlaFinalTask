@@ -1,0 +1,46 @@
+<template>
+	<lightning-card title='{label.AutomotiveLineup}'>
+		<div class="slds-card__body slds-card__body_inner">
+			<template if:true={products.data}>
+				<lightning-layout multiple-rows="true" pull-to-boundary="small">
+					<template for:each={products.data} for:item="product">
+						<lightning-layout-item 
+						key={product.ProductId__r.Id} 
+						class="slds-p-around_small"
+						size="12" 
+						>
+						  <div class="slds-card">
+							<div class="slds-card__body slds-card__body_inner">
+							  <ul class="slds-grid slds-wrap slds-grid_pull-padded">
+								<li class="slds-p-horizontal_small slds-size_1-of-1">
+								  <article class="slds-tile slds-media slds-card__tile slds-hint-parent">
+									<div class="slds-media__figure">
+									  <img src={product.ProductId__r.Image__c} alt={product.ProductId__r.Name} width="300" height="100"/>
+									</div>
+									<div class="slds-media__body">
+									  <p class="slds-p-horizontal_small slds-text-title_bold slds-m-bottom_small">{product.ProductId__r.Name}</p>
+									  <p class="slds-p-horizontal_small slds-m-bottom_small">{label.productDescription}: {product.ProductId__r.Description}</p>
+									  <lightning-button data-name='{product.ProductId__r.Name}' data-centerid='{recordId}' data-family='{product.ProductId__r.Family}' label='{label.AutoInStock}' title="Looks like a link" onclick={handleShowModal} class="slds-m-left_x-small"></lightning-button>
+									</div>
+								  </article>
+								</li>
+							  </ul>
+							</div>
+						  </div>
+					  </lightning-layout-item>
+					</template>
+				</lightning-layout>
+				<template if:false={hasResults}>
+					<div class="slds-align_absolute-center slds-var-m-vertical_small">
+						{label.Haven_t_found_any_results}
+					</div>
+				</template>
+			</template>
+			<template if:true={products.error}>
+				<div class="slds-text-color_error">
+					An error occurred while loading the products list
+				</div>
+			</template>
+		</div>
+	</lightning-card>
+</template>

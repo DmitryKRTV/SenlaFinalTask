@@ -1,0 +1,76 @@
+<template>
+    <lightning-card title={labelCenter.Dealers}>
+      <template if:true={dealers.data}>
+        <template for:each={dealers.data} for:item="dealer">
+          <lightning-layout-item 
+          key={dealer.Id}
+          size="12" 
+          >
+            <div class="slds-card">
+              <div class="slds-card__body slds-card__body_inner">
+                <ul class="slds-grid slds-wrap slds-grid_pull-padded">
+                  <li class="slds-p-horizontal_small slds-size_1-of-1">
+                    <article class="slds-tile slds-media slds-card__tile slds-hint-parent">
+                      <div class="slds-media__figure">
+                        <img src={dealer.Image__c} alt={dealer.Name} width="300" height="100"/>
+                      </div>
+                      <div class="slds-media__body">
+                        <p class="slds-p-horizontal_small slds-text-title_bold slds-m-bottom_small">{dealer.Name}</p>
+                        <p class="slds-p-horizontal_small slds-m-bottom_small">{labelCenter.Address}: {dealer.Address__c}</p>
+                        <p class="slds-p-horizontal_small slds-m-bottom_small">{labelCenter.Phone}: {dealer.Phone__c}</p>
+                        <p class="slds-p-horizontal_small slds-m-bottom_small">{labelCenter.WorkingDays}: {dealer.Working_days__c}</p>
+                        <p class="slds-p-horizontal_small slds-m-bottom_small">{labelCenter.WorkingHours}: {dealer.Working_hours__c}</p>
+                        <lightning-button data-centerid='{dealer.Id}' label={labelCenter.VisitCenterPage} onclick={handleClick} variant="brand" style="margin-left: 10px;"></lightning-button>
+                      </div>
+                    </article>
+                  </li>
+                </ul>
+              </div>
+            </div>
+        </lightning-layout-item>
+        </template>
+      </template>
+      <template if:true={dealers.error}>
+        <p>Error retrieving dealers: {dealers.error}</p>
+      </template>
+    </lightning-card>
+
+    <lightning-card title={labelCenter.Services}>
+      <template if:true={services.data}>
+        <template for:each={services.data} for:item="service">
+          <lightning-layout-item 
+          key={service.Id}
+          size="12" 
+          small-device-size="6" 
+          medium-device-size="4" 
+          large-device-size="3"
+          >
+            <div class="slds-card">
+              <div class="slds-card__body slds-card__body_inner">
+                <ul class="slds-grid slds-wrap slds-grid_pull-padded">
+                  <li class="slds-p-horizontal_small slds-size_1-of-1">
+                    <article class="slds-tile slds-media slds-card__tile slds-hint-parent">
+                      <div class="slds-media__figure">
+                        <img src={service.Image__c} alt={service.Name} width="300" height="100"/>
+                      </div>
+                      <div class="slds-media__body">
+                        <p class="slds-p-horizontal_small slds-text-title_bold slds-m-bottom_small">{service.Name}</p>
+                        <p class="slds-p-horizontal_small slds-m-bottom_small">{labelCenter.Address}: {service.Address__c}</p>
+                        <p class="slds-p-horizontal_small slds-m-bottom_small">{labelCenter.Phone}: {service.Phone__c}</p>
+                        <p class="slds-p-horizontal_small slds-m-bottom_small">{labelCenter.WorkingDays}: {service.Working_days__c}</p>
+                        <p class="slds-p-horizontal_small slds-m-bottom_small">{labelCenter.WorkingHours}: {service.Working_hours__c}</p>
+                        <lightning-button data-centerid='{service.Id}' label={labelCenter.VisitCenterPage} onclick={handleClick} variant="brand" style="margin-left: 10px;"></lightning-button>
+                      </div>
+                    </article>
+                  </li>
+                </ul>
+              </div>
+            </div>
+        </lightning-layout-item>
+        </template>
+      </template>
+      <template if:true={services.error}>
+        <p>Error retrieving services: {services.error}</p>
+      </template>
+    </lightning-card>
+</template>

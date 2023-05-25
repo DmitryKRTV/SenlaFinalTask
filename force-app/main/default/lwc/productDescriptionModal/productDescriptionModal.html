@@ -1,0 +1,70 @@
+<template>
+    <lightning-modal-header label={headerText}></lightning-modal-header>
+    <lightning-modal-body>
+            <lightning-combobox 
+                name="options"
+                label={labelModal.Currency}
+                value={selectedCurrency}
+                options={options}
+                onchange={handleChange}
+                style="width: 200px;"
+                >
+            </lightning-combobox>
+        <template if:true={products.data}>
+            <lightning-layout multiple-rows="true" pull-to-boundary="small">
+                <template for:each={products.data} for:item="product">
+                    <lightning-layout-item 
+                        key={product.Product2Id} 
+                        size="12" 
+
+                        class="slds-p-around_small"
+                        >
+                        <div class="slds-card">
+                            <div class="slds-card__body slds-card__body_inner">
+                              <ul class="slds-grid slds-wrap slds-grid_pull-padded">
+                                <li class="slds-p-horizontal_small slds-size_1-of-1">
+                                  <article class="slds-tile slds-media slds-card__tile slds-hint-parent">
+                                    <div class="slds-media__figure">
+                                      <img src={product.Product2.Image__c} alt={product.Product2.Name} width="300" height="100"/>
+                                    </div>
+                                    <div class="slds-media__body">
+                                        <p class="slds-p-horizontal_small slds-m-bottom_small">{ product.Product2.Name }</p>
+                                        <p class="slds-p-horizontal_small slds-text-align_left">{ labelModal.Complectation }: { product.Product2.Complectation__c}</p>
+                                        <p class="slds-p-horizontal_small slds-text-align_left">{ labelModal.DriveUnit }: { product.Product2.Drive_Unit__c }</p>
+                                        <p class="slds-p-horizontal_small slds-text-align_left">{ labelModal.Transmission }: { product.Product2.Transmission__c }</p>
+                                        <p class="slds-p-horizontal_small slds-text-align_left">{ labelModal.Price }: { product.UnitPrice }</p>
+
+                                        <p class="slds-p-horizontal_small slds-text-align_left"> { labelModal.CarBodyType }: { product.Product2.Car_Body_Type__c }</p>
+                                        <p class="slds-p-horizontal_small slds-text-align_left"> { labelModal.Engine }: { product.Product2.Engine__c }</p>
+                                        <p class="slds-p-horizontal_small slds-text-align_left"> { labelModal.FuelType }: { product.Product2.Fuel_Type__c}</p>
+                                        <p class="slds-p-horizontal_small slds-text-align_left"> { labelModal.Color }: { product.Product2.Color__c }</p>
+                                      
+                                    </div>
+                                  </article>
+                                </li>
+                              </ul>
+                            </div>
+                        </div>
+                    </lightning-layout-item>
+                </template>
+            </lightning-layout>
+            <template if:false={hasResults}>
+                <div class="slds-align_absolute-center slds-var-m-vertical_small">
+                    Haven't found any results...
+                </div>
+            </template>
+        </template>
+        <template if:true={products.error}>
+            <div class="slds-text-color_error">
+                An error occurred while loading the products list
+            </div>
+        </template>
+        <template if:true={boolShowSpinner}>
+            <lightning-spinner alternative-text="Loading" size="large"></lightning-spinner>
+        </template>
+    </lightning-modal-body>
+    <lightning-modal-footer>
+        <lightning-button style="margin-right: 20px;" label={labelModal.DownloadPriceList} onclick={createPDF}></lightning-button>
+        <lightning-button label="OK" onclick={handleOkay}></lightning-button>
+    </lightning-modal-footer>
+</template>
